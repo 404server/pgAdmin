@@ -1,0 +1,51 @@
+-- Table: public.class
+
+-- DROP TABLE IF EXISTS public.class;
+
+CREATE TABLE IF NOT EXISTS public.class
+(
+    class_id bigint NOT NULL DEFAULT nextval('class_class_id_seq'::regclass),
+    class_name character varying(100) COLLATE pg_catalog."default" NOT NULL,
+    CONSTRAINT class_pkey PRIMARY KEY (class_id)
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS public.class
+    OWNER to postgres;
+
+
+
+-- Table: public.student
+
+-- DROP TABLE IF EXISTS public.student;
+
+CREATE TABLE IF NOT EXISTS public.student
+(
+    student_id bigint NOT NULL DEFAULT nextval('student_id_seq'::regclass),
+    first_name character varying(100) COLLATE pg_catalog."default" NOT NULL,
+    second_name character varying(100) COLLATE pg_catalog."default" NOT NULL,
+    last_name character varying(100) COLLATE pg_catalog."default" NOT NULL,
+    class_id bigint NOT NULL DEFAULT nextval('student_class_id_seq'::regclass),
+    CONSTRAINT student_pkey PRIMARY KEY (student_id),
+    CONSTRAINT student_class_id_fkey FOREIGN KEY (class_id)
+        REFERENCES public.class (class_id) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS public.student
+    OWNER to postgres;
+
+
+
+
+
+insert into CLASS (class_name) values ('math');
+insert into CLASS (class_name) values ('english');
+insert into STUDENT (first_name,second_name,last_name,id_class) values ('Ninette', 'Faers','Mike',1);
+insert into STUDENT (first_name,second_name,last_name,id_class) values ('Norman', 'Burgyn', 'Jhonson',2);
+insert into STUDENT (first_name,second_name,last_name,id_class) values ('Aubrie', 'Overy', 'River',2);
+insert into STUDENT (first_name,second_name,last_name,id_class) values ('Kalila', 'Botterill','Smith',1 );
